@@ -18,8 +18,11 @@ app.use(bodyParser.json());
 app.post('/slack/events', async (req, res) => {
     const { type, event } = req.body;
 
+    console.log('req: ' + JSON.stringify(req.body));
+
     // 验证 Slack 请求
     if (type === 'url_verification') {
+        console.log('slack url verification');
         return res.status(200).send(req.body.challenge);
     }
 
@@ -27,20 +30,22 @@ app.post('/slack/events', async (req, res) => {
     if (event && event.type === 'message' && !event.subtype) {
         const { text, channel } = event;
 
-        try {
-            // 使用 Web API 回复消息
-            await client.chat.postMessage({
-                channel: channel,
-                text: `你说了: ${text}`,
-            });
-        } catch (error) {
-            console.error('Error posting message: ', error);
-        }
+        console.log('slack message');
+
+        // try {
+        //     // 使用 Web API 回复消息
+        //     await client.chat.postMessage({
+        //         channel: channel,
+        //         text: `你说了: ${text}`,
+        //     });
+        // } catch (error) {
+        //     console.error('Error posting message: ', error);
+        // }
     }
 
     res.status(200).end();
 });
 
 app.listen(port, () => {
-    console.log(`Andrew's slack bot is listening on port ${port}`);
+    console.log(`Slack bot is listening on port ${port}`);
 });
