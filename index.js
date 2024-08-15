@@ -6,6 +6,9 @@ require('dotenv').config();
 
 // 使用你的 Slack Bot Token
 const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN;
+if (!SLACK_BOT_TOKEN) {
+    console.error('SLACK_BOT_TOKEN is not defined!');
+}
 
 const app = express();
 const port = process.env.PORT;
