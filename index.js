@@ -10,7 +10,11 @@ const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || 'your-slack-bot-token';
 const app = express();
 const port = process.env.PORT || 3000;
 
+// 创建 Slack WebClient
 const client = new WebClient(SLACK_BOT_TOKEN);
+
+// 设定目标频道 ID
+const targetChannelId = 'DM43ZLPCZ'; // 替换为你目标频道的 ID
 
 // 解析 JSON 请求
 app.use(bodyParser.json());
@@ -30,17 +34,17 @@ app.post('/slack/events', async (req, res) => {
     if (event && event.type === 'message' && !event.subtype) {
         const { text, channel } = event;
 
-        console.log('slack message');
+        console.log('slack message ' + text);
 
-        // try {
-        //     // 使用 Web API 回复消息
-        //     await client.chat.postMessage({
-        //         channel: channel,
-        //         text: `你说了: ${text}`,
-        //     });
-        // } catch (error) {
-        //     console.error('Error posting message: ', error);
-        // }
+        try {
+            // 使用 Web API 回复消息
+            await client.chat.postMessage({
+                channel: targetChannelId,
+                text: `在${channel}中你说了: ${text}`,
+            });
+        } catch (error) {
+            console.error('Error posting message: ', error);
+        }
     }
 
     res.status(200).end();
