@@ -12,8 +12,3 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Deploy to Railway
-      uses: railwayapp/railway-action@master
-      with:
-        railway_token: ${{ secrets.RAILWAY_API_TOKEN }}
