@@ -5,10 +5,10 @@ const { WebClient } = require('@slack/web-api');
 require('dotenv').config();
 
 // 使用你的 Slack Bot Token
-const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN || 'your-slack-bot-token';
+const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN;
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // 创建 Slack WebClient
 const client = new WebClient(SLACK_BOT_TOKEN);
