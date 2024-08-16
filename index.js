@@ -8,6 +8,8 @@ require('dotenv').config();
 const SLACK_BOT_TOKEN = process.env.SLACK_BOT_TOKEN;
 if (!SLACK_BOT_TOKEN) {
     console.error('SLACK_BOT_TOKEN is not defined!');
+} else {
+    console.log('SLACK_BOT_TOKEN = ' + SLACK_BOT_TOKEN)
 }
 
 const app = express();
@@ -24,6 +26,8 @@ app.use(bodyParser.json());
 
 app.post('/slack/events', async (req, res) => {
     const { type, event } = req.body;
+
+    console.log('SLACK_BOT_TOKEN = ' + SLACK_BOT_TOKEN)
 
     console.log('req: ' + JSON.stringify(req.body));
 
